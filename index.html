@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>uWSGI рецепты приготовления</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/bright/styles/screen.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>uWSGI рецепты приготовления</h1>
+	</header>
+	<section class="slide cover" id="Cover"><div>
+		<img src="pictures/7.png" width="100%">
+		<style>
+			#Cover {
+				background-color: #008DD1;
+			}
+			#Cover h2 {
+				margin:30px 0 0;
+				color: #FFF;
+				text-align:center;
+				font-size:70px;
+				}
+			#Cover p {
+				margin:50px 0 0;
+				text-align:center;
+				color:#FFF;
+				font-style:italic;
+				font-size:20px;
+				}
+				#Cover p a {
+					color:#FFF;
+					}
+			/*#Cover img {
+				width:0.72em;
+				height:0.72em;
+				}*/
+		</style>
+	</div></section>
+	<section class="slide"><div>
+		<h2></h2>
+		<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/zq2ljnfe.png" alt="" />
+		<p>
+			Easy-to-use Machine Learning service that helps people build models and predict on them.
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/5ddaislc.png" alt="" width="90%"/>
+		</p>
+
+	</div></section>
+	<section class="slide"><div>
+		<h3>Use cases</h3>
+		<h2>Batch scoring</h2>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/crhpmk8g.png" alt="" width="40%"/>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/d1jyprgz.png" alt="" width="40%"/>
+		</p>
+		<p>
+			Daily emails with advertising, recommended items etc.
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<h3>Use cases</h3>
+		<h2>Real-time service</h2>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/d-7g8x4l.png" alt="" width="40%"/>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/04kr4l1g.png" alt="" width="40%"/>
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<h3>DataRobot Pipeline</h3>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/58vboadf.png" alt="" width="70%"/>
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<h3>Intellegent apps</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>
+						Inputs
+					</th>
+					<th>
+						Application
+					</th>
+					<th>
+						Outputs
+					</th>
+				</tr>
+				<tr>
+					<td>
+						products clicked
+					</td>
+					<td>
+						product recommendation
+					</td>
+					<td>
+						list of similar products
+					</td>
+				</tr>
+				<tr>
+					<td>
+						item(house, airline ticket, etc.)
+					</td>
+					<td>
+						price intellegence & forecasting
+					</td>
+					<td>
+						price trend and likehood to change
+					</td>
+				</tr>
+				<tr>
+					<td>
+						transaction details
+					</td>
+					<td>
+						fraud detection
+					</td>
+					<td>
+						transaction approved/declined
+					</td>
+				</tr>
+				<tr>
+					<td>
+						in-game activity stream
+					</td>
+					<td>
+						game engagement
+					</td>
+					<td>
+						change difficulty of game
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div></section>
+	<section class="slide"><div>
+		<h3>Intellegent app cycle</h3>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/vis4ey7d.png" alt="" width="90%"/>
+		</p>
+	</div>
+</section>
+	<section class="slide"><div>
+
+		<h2>Challenges in ML in production</h2>
+		<figure>
+		<ul>
+			<li>Time constraints - run and respond fast enough</li>
+			<li>needs to be robust and "just works"</li>
+		</ul></figure>
+	</div>
+	</section>
+	<section class="slide"><div>
+		<h2>Not all times are matter</h2>
+		<figure>
+		<ul>
+			<li>Time to respond</li>
+			<li>Time to build the model</li>
+			<li>Time to deploy the model</li>
+		</ul>
+		</figure>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Latency for predictions (what is fast?)</h2>
+		<figure>
+		<table>
+			<tbody>
+				<tr>
+					<th>
+						for what
+					</th>
+					<th>
+						good enough
+					</th>
+				</tr>
+				<tr>
+					<td>
+						recommendation
+					</td>
+					<td>
+						< 300 ms
+					</td>
+				</tr>
+				<tr>
+					<td>
+						advertisement,  click-through rates
+					</td>
+					<td>
+						< 70 ms
+					</td>
+				</tr>
+				<tr>
+					<td>
+						fraud detection
+					</td>
+					<td>
+						< 30 ms
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</figure>
+	</div></section>
+	<section class="slide"><div>
+		<h3>Prediction request (what's going on backend)</h3>
+		<figure>
+		<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/aqaz4pnc.png" width="85%" alt="" />
+		</figure>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Bottlenecks</h2>
+		<figure>
+		<ul>
+			<li>Distributed FS are slow</li>
+			<li>Putting model in RAM is a costful(slow) operation</li>
+			<li>Prediction is a CPU-bound operation</li>
+			<li>RAM usage could be very high</li>
+		</ul>
+		</figure>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Prediction Workers (Pain of Python)</h2>
+		<figure>
+
+		<p>
+			One model that loaded in memory
+			1 Gb * 16 processes = 16 Gb
+		</p>
+		<p>
+			Ten models that loaded in memory
+			10 Gb * 16 processes = 160 Gb
+		</p>
+		</figure>
+	</div></section>
+
+
+	<section class="slide"><div>
+		<iframe width="754" height="380" src="https://www.youtube.com/embed/yJxCdh1Ps48" frameborder="0" allowfullscreen></iframe>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Customer rule</h2>
+		<figure>
+			<p>10 models that are in memory are not enough</p>
+			<p>From 64 to 1000 would be good</p>
+		</figure>
+	</div></section>
+
+	<section class="slide"><div>
+		<h3>Horizontal scale</h3>
+		<figure>
+			<p>
+				<img src="http://imgur.com/AzE5IPI.png" width="50%", alt="" />
+			</p>
+		</figure>
+	</div></section>
+	<section class="slide"><div>
+
+		<h3>Weighted round-robin with model concurrency = 40</h3>
+		<figure>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/9houbenz.png" width="100%" alt="" />
+		</p>
+
+		</figure>
+	</div>
+	</section>
+
+	<section class="slide">
+		<figure>
+		<p>
+			<img src="http://i.imgur.com/dqk8paB.png" width="92%" alt="" />
+		</p>
+
+		</figure>
+	</section>
+
+	<section class="slide"><div>
+
+		<h3>Consistent hashing with model concurrency = 40</h3>
+		<figure>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/fuuhey5k.png" width="100%" alt="" />
+		</p>
+		</figure>
+	</div>
+	</section>
+
+
+	<section class="slide"><div>
+		<h3>Benefits:</h3>
+		<ul>
+			<li>Custom routing (good UX, horizontal scaling)</li>
+		</ul>
+		<h3>Gaps:</h3>
+		<ul>
+			<li>
+				System and infrastructure are complex and it's 🚲
+			</li>
+			<li>
+				Problem with oposite usecase.
+				Cluster usage (Consistent hashing balancing) model concurrency = 1 is below 15 %
+			</li>
+
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Customer rule</h2>
+		<p>
+			We have to support two cases:
+			<ul>
+				<li>
+					Scale one model across cluster
+				</li>
+				<li>
+					Support N models in cluster simultaneously
+				</li>
+			</ul>
+		</p>
+	</section>
+	<section class="slide"><div>
+		<h3>Resource(routing) management</h3>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/nx3ibc4t.png" width="90%" alt="" />
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<h3>Resource(routing) management</h3>
+		<p>
+			<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/ffl8xnat.png" width="90%" alt="" />
+		</p>
+	</div></section>
+	<section class="slide"><div>
+		<h3>Benefits:</h3>
+		<ul>
+			<li>Support both cases in one setup</li>
+		</ul>
+		<h3>Gaps:</h3>
+		<ul>
+			<li>
+				Not robust (users should worry and contol load balancing by themselves)
+			</li>
+			<li>
+				Resource strictly managed you can't robust utilize full cluster on custom load
+			</li>
+			<li>
+				Allocate resources for new model will implicitely reduce resouces for all others
+			</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h3>Other problems</h3>
+		<p>
+		<ul>
+			<li>Service Discovery</li>
+			<li>Monitoring/Alerting</li>
+			<li>Cold cache</li>
+			<li>Resource management with feedback control system</li>
+		</ul>
+		</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h3>What's next?</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>
+						Apache YARN
+					</th>
+					<th>
+						Apache Mesos
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<img src="https://dl.dropboxusercontent.com/spa/x3hnf220lzqoaxi/b1pk8b1d.png" width="30%" alt="" />
+					</td>
+					<td>
+						<img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/techstacks/apache-mesos-logo.png" width="30%" alt="" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div></section>
+
+
+	<section class="slide"><div>
+		<h2>Links</h2>
+		<ul>
+			<li><a href="https://docs.google.com/presentation/d/1slEg8dQMgwA1f6WQ6vFL_d5peRKXucWDSp8dOl5Y048/edit">Custom load balancing (Job router)</li>
+			</a></li>
+		</ul>
+		</div></section>
+
+<section class="slide shout" id="SeeMore"><div>
+		<h2>
+		<p>
+			Thanks
+		</p>
+		<p>
+			<img src="pictures/github.png" alt=""> <a href="https://github.com/Axik">github.com/Axik</a>
+		</p>
+		<p>
+		<img src="pictures/twitter.png" alt=""> <a href="https://github.com/Axik">twitter.com/axique</a></h2>
+		</p>
+
+		<h2></h2>
+		<style>
+			#Picture h2 {
+				color:#FFF;
+				}
+			#SeeMore h2 {
+				font-size:45px
+				}
+			#SeeMore img {
+				width:0.72em;
+				height:0.72em;
+				}
+		</style>
+	</div></section>
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2015 Web-academy.com -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>
